@@ -113,8 +113,8 @@ Most arguments are inherited from `transformers` and are easy to understand. We 
   - `prompt-multiTokenDiscrimination`: Prompt-based fine-tuning with ELECTRA, multi token discrimination, this is exactly the proposed DLM-SCS.
   - `prompt-maskOnlyDiscrimination`: Prompt-based fine-tuning with ELECTRA, label word token discrimination, this is DLM-SCS (-only label word).
 - `num_k`: Number of training instances for each class. We take `num_k`=16 in our paper. This argument is mainly used for indexing logs afterwards (because the training example numbers are actually decided by the data split you use).
-- `template`: Template for prompt-based fine-tuning. We will introduce the template format later.
-- `mapping`: Label word mapping for prompt-based fine-tuning. It is a string of dictionary indicating the mapping from label names to label words. **NOTE**: For RoBERTa, the model will automatically add space before the word. See the paper appendix for details.
+- `template`: Template for prompt-based fine-tuning. Refer `scripts/run_experiments.sh` and function **process_one_template** in `src/dataset.py` for more details.
+- `mapping`: Label word mapping for prompt-based fine-tuning. It is a string of dictionary indicating the mapping from label names to label words. **NOTE**: For RoBERTa, the model will automatically add space before the word.
 - `loss_weight_lr`: only for DLM-SCS, loss_weight is the weight of each sentence part, this is the learning rate of the weight.
 - `output_each_part_logits`: only for DLM-SCS, weather to output predicted logits of each sentence part. 1 for True and 0 for False.
 - `compute_tf_idf`: only for DLM-SCS. Whether to use TF-IDF weighting for different tokens. If set to 1, it indicates the use of TF-IDF weighting. If set to 0, it means that TF-IDF weighting is not used, which corresponds to the ablation experiment of DLM-SCS (-w.o. token weight).
@@ -197,7 +197,7 @@ bash scripts/batch_run_lmbff.sh
 
 ### Gather Results
 
-All the results will be stored in `./log`. To gather all the results, run the following command:
+All the results will be stored in `./log`. To gather all the results, run the following command(here, we will take the example of the DLM-SCS results):
 
 ```bash
 python tools/gather_result.py --log log_dlmscs --condition "{'tag': 'DLMSCS-bs$bs', 'task_name': '$task', 'few_shot_type': 'prompt-multiTokenDiscrimination'}"
