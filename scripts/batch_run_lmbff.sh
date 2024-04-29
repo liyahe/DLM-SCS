@@ -2,8 +2,8 @@ for task in SST-2 sst-5 mr cr SNLI MNLI QNLI RTE MRPC QQP; do
   for shot in 16; do
     for seed in 13 21 42 87 100; do
       for bs in 2; do
-        TAG=LMBFF-bs$bs
-        TYPE=prompt \
+        TAG=LMBFF-bs$bs \
+          TYPE=prompt \
           MODE=k-shot \
           SHOT=$shot \
           TASK=$task \
