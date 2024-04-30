@@ -1,34 +1,18 @@
-# DLM-SCS
 for bs in 2; do
-    for task in sst-2 snli mnli qnli qqp/f1 rte mrpc/f1 mr cr sst-5; do
+    for task in snli mnli qnli qqp/f1 mrpc/f1 rte sst-2 sst-5 mr cr; do
+        # DLM-SCS
         python tools/gather_result.py --log log_dlmscs --condition "{'tag': 'DLMSCS-bs$bs', 'task_name': '${task}'}"
-    done
-done
 
-# DLM-SCS (w.o. token weight)
-for bs in 2; do
-    for task in sst-2 snli mnli qnli qqp/f1 rte mrpc/f1 mr cr sst-5; do
+        # DLM-SCS (w.o. token weight)
         python tools/gather_result.py --log log_dlmscs --condition "{'tag': 'DLMSCS-bs$bs-woTokenWeight', 'task_name': '${task}'}"
-    done
-done
 
-# DLM-SCS (only label word)
-for bs in 2; do
-    for task in sst-2 snli mnli qnli qqp/f1 rte mrpc/f1 mr cr sst-5; do
+        # DLM-SCS (only label word)
         python tools/gather_result.py --log log_dlmscs --condition "{'tag': 'DLMSCS-bs$bs-onlyLabelWord', 'task_name': '${task}'}"
-    done
-done
 
-# finetune
-for bs in 2; do
-    for task in sst-2 snli mnli qnli qqp/f1 rte mrpc/f1 mr cr sst-5; do
+        # finetune
         python tools/gather_result.py --log log_finetune --condition "{'tag': 'finetune-bs$bs', 'task_name': '${task}'}"
-    done
-done
 
-# lmbff
-for bs in 2; do
-    for task in sst-2 snli mnli qnli qqp/f1 rte mrpc/f1 mr cr sst-5; do
+        # lmbff
         python tools/gather_result.py --log log_lmbff --condition "{'tag': 'LMBFF-bs$bs', 'task_name': '${task}'}"
     done
 done
